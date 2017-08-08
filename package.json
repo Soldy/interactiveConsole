@@ -1,0 +1,44 @@
+{
+  "name": "interactiveConsole",
+  "version": "0.0.6-r3a",
+  "description": "simple fast utf-8 console/shell",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soldy/interactiveConsole.git"
+  },
+  "keywords": [
+    "commandline",
+    "command-line",
+    "command line",
+    "shell",
+    "cli",
+    "console",
+    "console_color",
+    "console-color",
+    "console color",
+    "cli_color",
+    "cli-color",
+    "cli color",
+    "color",
+    "console_utf8",
+    "console-utf8",
+    "console utf8",    
+    "utf8",    
+    "cli_utf-8",
+    "cli utf-8",    
+    "utf-8",   
+    "table",
+    "console table",
+    "graph",
+    "console graph"
+  ],
+  "author": "Soldy",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/Soldy/intractiveConsole/issues"
+  }
+}
