@@ -1,8 +1,8 @@
+"use strict";
 
 const consoleOld = require('console').Console;
 const fs = require('fs');
 
-"use strict"
 
 exports.console = function () {
     this.howami = "interactiveConsole not ready";
@@ -11,7 +11,7 @@ exports.console = function () {
     this.size = {
         column: process.stdout.columns,
         row: process.stdout.rows
-    }
+    };
     this.count = consoleOld.count;
     this.check = function () {
         try {
@@ -22,13 +22,13 @@ exports.console = function () {
             that.detected.wonderfulOutput = 0;
         }
         that.howami = "interactiveConsole is fine";
-    }
+    };
     this.debug = function (incoming, level) {
         if (typeof level === "undefined")
             level = 9;
         if (that.config.debugLevel >= level)
             that.log(incoming);
-    }
+    };
     this.detected = {
         wonderfulOutput: 0
     };
@@ -58,7 +58,7 @@ exports.console = function () {
                  size  : 10,
                  max   : inp.max,
                  lines : inp.lines
-             }
+             };
          },
          addLine:function(inp){
              if(
@@ -81,7 +81,7 @@ exports.console = function () {
                  title:inp.title,
                  color:inp.color,
                  value:inp.value
-             }
+             };
          },
          update:function(inp){
              if(
@@ -104,7 +104,7 @@ exports.console = function () {
                  return false;
              let siz = that.bar.bars[bar].size,
                  out = "",
-                 max = that.bar.bars[bar].max;
+                 max = that.bar.bars[bar].max,
                  lines = that.bar.bars[bar].lines;
              for (let i in lines){
                 out += that.bar.title(siz,lines[i].title)+
@@ -133,7 +133,7 @@ exports.console = function () {
               
          }
 
-    }
+    };
     this.history = {
         list: [],
         position: 0,
@@ -154,19 +154,19 @@ exports.console = function () {
             that.history.position = that.history.list.length;
             return true;
         }
-    }
+    };
     this.icons = {
         log: "\u27e1",
         warn: "\u26a0",
         info: "\u2709",
         error: "\u26a1",
         time: "\u25f4"
-    },
-            this.writeStream = {
-                write: function (haleluja) {
-                    return false;
-                }
-            }
+    };
+    this.writeStream = {
+        write: function (haleluja) {
+            return false;
+        }
+    };
     this.writeInit = function () {
         this.writeStream = fs.createWriteStream(
             this.config.log.directory + this.config.log.fileName, {'flags': 'a'}
@@ -221,7 +221,7 @@ exports.console = function () {
         titleColor: 1,
         timeStamp: 1,
         wonderfulOutput: 1
-    }
+    };
     this.styles = {
         color: {
             black: 30,
@@ -255,7 +255,7 @@ exports.console = function () {
             hidden: 8,
             strikethrough: 9,
         }
-    }
+    };
     this.cache = [];
     this.cacheRewrite = function () {
         that.clear();
@@ -267,7 +267,7 @@ exports.console = function () {
                     that.cache[i].timeStamp) + "\n");
         }
         that.makePrompt();
-    }
+    };
     this.cacheAdd = function (count, hostname, text, type, timeStamp) {
         that.cache.push({
             count: count,
@@ -276,36 +276,36 @@ exports.console = function () {
             text: text,
             type: type
         });
-    }
+    };
     this.style = function (text, styles) {
-        var style = '\u001b[85';
-        for (var i in styles)
-            for (var s in styles[i])
+        let style = '\u001b[85';
+        for (let i in styles)
+            for (let s in styles[i])
                 if ((typeof this.styles[s] !== "undefined") && (typeof this.styles[s][styles[i][s]] !== "undefined"))
                     style += ";" + this.styles[s][styles[i][s]].toString();
-        for (var s in styles)
+        for (let s in styles)
             if ((typeof this.styles[s] !== "undefined") && (typeof this.styles[s][styles[s]] !== "undefined"))
                 style += ";" + this.styles[s][styles[s]].toString();
         var last = text.lastIndexOf("\u001b[0m");
         text = text.slice(0, last) + text.slice(last).replace("\u001b[0m", "\u001b[0m" + style + "m");
         return style + "m" + text + "\u001b[0m";
-    }
+    };
     this.watchOn = 0;
     this.yes = function () {};
     this.no = function () {};
     this.clear = function () {
         process.stdout.write('\u001b[2J\u001b[0;0f');
-    }
+    };
     this.print = function (incoming) {
         if (typeof incoming === "undefined")
             return false;
         process.stdout.write(incoming.toString());
-    }
+    };
     this.printError = function (incoming) {
         if (typeof incoming === "undefined")
             return false;
         process.stderr.write(incoming.toString());
-    }
+    };
     this.printLn = function (incoming, type) {
         if (typeof incoming === "undefined")
             return false;
@@ -323,14 +323,14 @@ exports.console = function () {
             this.printError(incoming.toString() + "\n");
         if (this.watchOn === 1)
             this.makePrompt();
-    }
+    };
     this.titleText = {
         log: "log : ",
         warn: "warning : ",
         info: "info : ",
         error: "error : ",
         time: "time : "
-    }
+    };
     this.textMaker = {
         timeStamp: function (stamp) {
             if (that.config.timeStamp === 1)
@@ -393,9 +393,9 @@ exports.console = function () {
             }
         },
         add: function (text, type) {
-            var stamp = +new Date;
+            let stamp = +new Date();
             that.countNumber++;
-            var out = text;
+            let out = text;
             if (that.config.format === "text") {
                 out = that.textMaker.formater(out);
                 out = that.textMaker.text(type, out);
@@ -434,7 +434,7 @@ exports.console = function () {
         },
         incomming: function (hostname, text, type, stamp) {
             if (typeof stamp === "undefined")
-                var stamp = (+new Date);
+                stamp = (+new Date());
             that.countNumber++;
             if (that.config.format === "text") {
                 text = that.textMaker.formater(text);
@@ -453,28 +453,28 @@ exports.console = function () {
             return text;
         }
 
-    }
+    };
     this.log = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "log"));
-    }
+    };
     this.error = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "error", "error"));
-    }
+    };
     this.info = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "info"));
-    }
+    };
     this.timeText = "";
     this.timeStamp = 0;
     this.time = function (incoming) {
         this.timeText = incoming.toString();
         this.timeStamp = +new Date();
-    }
+    };
     this.timeEnd = function () {
         this.printLn(this.textMaker.add(this.timeText + " " + (((+new Date())) - this.timeStamp).toString() + "ms", "time"));
-    }
+    };
     this.warn = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "warn"));
-    }
+    };
     this.table = function (tableData) {
         var u = {
             a1: "\u250C",
@@ -488,7 +488,7 @@ exports.console = function () {
             c4: "\u251c",
             c5: "\u2524",
             b2: "\u2502"
-        }
+        };
 
         function calculateTable(tableData) {
             var sizeCol = 0,
@@ -520,14 +520,13 @@ exports.console = function () {
             out += u.a2;
             return out;
         }
-
         function tableCenter(tableSize) {
             var out = "";
             out += u.c4;
-            for (var ic = 0; tableSize.length > ic; ic++) {
+            for (let ic = 0; tableSize.length > ic; ic++) {
                 if (ic > 0)
                     out += u.c2;
-                for (var il = 0; tableSize[ic] > il; il++)
+                for (let il = 0; tableSize[ic] > il; il++)
                     out += u.b1;
             }
             out += u.c5;
@@ -537,7 +536,7 @@ exports.console = function () {
         function tableButton(tableSize) {
             var out = "";
             out += u.a3;
-            for (var ic = 0; tableSize.length > ic; ic++) {
+            for (let ic = 0; tableSize.length > ic; ic++) {
                 if (ic > 0)
                     out += u.c3;
                 for (var il = 0; tableSize[ic] > il; il++)
@@ -551,7 +550,7 @@ exports.console = function () {
             var out = "",
                     before = 0;
             out += u.b2;
-            for (var ic = 0; tableSize.length > ic; ic++) {
+            for (let ic = 0; tableSize.length > ic; ic++) {
                 if (ic > 0)
                     out += u.b2;
                 if (typeof tableData[ic] !== "undefined") {
@@ -574,7 +573,7 @@ exports.console = function () {
             var out = "",
                     before = 0;
             out += u.b2;
-            for (var ic = 0; tableSize.length > ic; ic++) {
+            for (let ic = 0; tableSize.length > ic; ic++) {
                 if (ic > 0)
                     out += u.b2;
                 if (typeof tableData[ic] !== "undefined") {
@@ -599,7 +598,7 @@ exports.console = function () {
         var tableSize = calculateTable(tableData),
                 out = "";
         out += tableTop(tableSize) + "\n";
-        for (var i = 0; tableData.length > i; i++) {
+        for (let i = 0; tableData.length > i; i++) {
             if (i > 0) {
                 out += tableCenter(tableSize) + "\n";
                 out += tableDataLine(tableData[i], tableSize) + "\n";
@@ -609,7 +608,7 @@ exports.console = function () {
         }
         out += tableButton(tableSize) + "\n";
         process.stdout.write(out);
-    }
+    };
     this.graph = function (barData, startNumber) {
         startNumber = startNumber || 0;
         var bar = [
@@ -637,7 +636,6 @@ exports.console = function () {
                 minNumber = 0,
                 maxNumber = 0,
                 endNumber = 0,
-                startNumber = 0,
                 diffNumber = 0,
                 outData = [],
                 perNumber = 0,
@@ -672,14 +670,14 @@ exports.console = function () {
         minNumber--;
         diffNumber = maxNumber - minNumber;
         perNumber = diffNumber / 100;
-        for (var i = startNumber; barData.length > i; i++) {
+        for (let i = startNumber; barData.length > i; i++) {
             outData.push((parseInt(barData[i]) - minNumber) / perNumber);
         }
         graph = "\n\u25B2 \n";
-        for (var i = 0; 14 > i; i++) {
+        for (let i = 0; 14 > i; i++) {
             graph += "\u2502";
-            for (var iL = 0; 60 > iL; iL++) {
-                minus = parseInt(outData[iL]) - ((14 - i) * 8)
+            for (let iL = 0; 60 > iL; iL++) {
+                minus = parseInt(outData[iL]) - ((14 - i) * 8);
                 if (1 > minus)
                     minus = 0;
                 if (minus > 7)
@@ -692,13 +690,13 @@ exports.console = function () {
             graph += "\n";
         }
         graph += "\u2514";
-        for (var i = 0; 60 > i; i++) {
+        for (let i = 0; 60 > i; i++) {
             graph += "\u2500";
         }
 
         graph += "\u25B6" + "\n";
         process.stdout.write(graph);
-    }
+    };
 
     this.exit = function () {
         that.makePrompt();
@@ -709,17 +707,17 @@ exports.console = function () {
         that.yes = function () {
             process.exit();
         };
-    }
+    };
     this.cursorPosition = 0;
     this.cursorText = "nodeConsole_> ";
 
     this.on = function (incomming) {
         return false;
-    }
+    };
     this.line = {
         last: "",
         text: "",
-    }
+    };
     this.cursor = {
         up: function (line) {
             process.stdout.write("\u001b[" + line + "A");
@@ -739,12 +737,12 @@ exports.console = function () {
         show: function (){
             process.stdout.write('\x1B[?25h');
         }
-    }
+    };
     this.newLine = function () {
         process.stdout.write("\n");
         that.cursorPosition = 0;
         that.line.text = "";
-    }
+    };
     this.makePrompt = function () {
         if(that.config.slave===1) return false;
         process.stdout.write("\n");
@@ -767,7 +765,7 @@ exports.console = function () {
             process.stdout.write(that.cursorText + this.line.text);
         }
         process.stdout.cursorTo(this.cursorPosition + this.cursorText.length);
-    }
+    };
     this.password = {
         on: function (password) {
             return false;
@@ -784,12 +782,12 @@ exports.console = function () {
             that.config.limitation = "password";
         },
         doAction: function () {
-            that.password.on(that.line.text)
+            that.password.on(that.line.text);
             that.password.inAction--;
             if (that.password.inAction === 0)
                 that.config.limitation = that.password.last;
         }
-    }
+    };
     this.number = {
         on: function (number) {
             return false;
@@ -806,12 +804,12 @@ exports.console = function () {
             that.config.limitation = "number";
         },
         doAction: function () {
-            that.number.on(that.line.text)
+            that.number.on(that.line.text);
             that.number.inAction--;
             if (that.number.inAction === 0)
                 that.config.limitation = that.number.last;
         }
-    }
+    };
     this.calculator = {
         on: function (calculator) {
             return false;
@@ -828,12 +826,12 @@ exports.console = function () {
             that.calculator.limitation = "calculator";
         },
         doAction: function () {
-            that.calcularor.on(that.line.text)
+            that.calcularor.on(that.line.text);
             that.calculator.inAction--;
             if (that.calculator.inAction === 0)
                 that.config.limitation = that.calculator.last;
         }
-    }
+    };
     this.direct = {
         on: function (direct) {
             return false;
@@ -850,12 +848,12 @@ exports.console = function () {
             that.direct.limitation = "direct";
         },
         doAction: function (key) {
-            that.direct.on(key)
+            that.direct.on(key);
             that.direct.inAction--;
             if (that.direct.inAction === 0)
                 that.config.limitation = that.direct.last;
         }
-    }
+    };
     this.command = {
         container: {
             helper: {},
@@ -863,11 +861,11 @@ exports.console = function () {
         },
         getCommands: function () {
             return JSON.stringify({
-                 hostname: hostname,
-                 timeStamp: stamp,
+                 //hostname: hostname,
+                 //timeStamp: stamp,
                  command:'getCommands',
                  response:that.command.container.commands,
-                 type: system
+                 //type: system
             });
         },
         on: function (commandArray) {
@@ -946,12 +944,12 @@ exports.console = function () {
             return out;
         },
         filter: function (tags, separated) {
-            var out = [];
+            let out = [];
             if (separated === "") {
-                for (var I in tags)
+                for (let I in tags)
                     out.push(I);
             } else {
-                for (var I in tags)
+                for (let I in tags)
                     if (I.indexOf(separated) == 0)
                         out.push(I);
             }
@@ -990,16 +988,21 @@ exports.console = function () {
             return that.command.make(that.command.looking(that.line.text));
         },
         systemCommands : function(command){
+            let dataJson;
             try{
-                var dataJson = JSON.parse(command);
+                dataJson = JSON.parse(command);
             }catch(e){
                 return false;
             }
-            if(typeof dataJson.command === "undefined") return false; 
-            if (dataJson.command === "getCommands") that.printLn(JSON.stringify(that.command.getCommands()));
-            if (dataJson.command === "goToSlave") that.config.slave=1;
+            command = dataJson.command;
+            if(typeof command === "undefined")
+                return false; 
+            if (command === "getCommands")
+                that.printLn(JSON.stringify(that.command.getCommands()));
+            if (command === "goToSlave")
+                that.config.slave=1;
         }
-    }
+    };
     this.watch = function () {
         that.watchOn = 1;
         process.stdin.setRawMode(true);
@@ -1112,7 +1115,7 @@ exports.console = function () {
                 }
             }
         });
-    }
+    };
     var that = this;
     this.check();
 };
