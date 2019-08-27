@@ -1,3 +1,5 @@
+![alt_tag](https://travis-ci.com/Soldy/interactiveConsole.svg?branch=master)
+
 # Utf-8 interactive console / shell
 
 ![alt tag](https://raw.githubusercontent.com/Soldy/interactiveConsole/master/share/screenshoot2.png)
