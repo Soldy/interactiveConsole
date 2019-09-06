@@ -40,5 +40,8 @@
   "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/Soldy/intractiveConsole/issues"
+  },
+  "devDependencies": {
+    "nanoTest": "0.0.4-alpha"
   }
 }
