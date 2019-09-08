@@ -1,6 +1,6 @@
 {
   "name": "interactiveConsole",
-  "version": "0.0.6-r3a",
+  "version": "0.0.99-alpha0",
   "description": "simple fast utf-8 console/shell",
   "main": "index.js",
   "scripts": {
@@ -26,11 +26,10 @@
     "color",
     "console_utf8",
     "console-utf8",
-    "console utf8",    
-    "utf8",    
+    "utf8",
     "cli_utf-8",
-    "cli utf-8",    
-    "utf-8",   
+    "cli utf-8",
+    "utf-8",
     "table",
     "console table",
     "graph",
@@ -40,5 +39,8 @@
   "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/Soldy/intractiveConsole/issues"
+  },
+  "devDependencies": {
+    "nanoTest": "0.0.4-alpha"
   }
 }

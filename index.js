@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 
 const consoleOld = require('console').Console;
 const fs = require('fs');
 
 "use strict"
+=======
+"use strict";
+
+const consoleOld = require("console").Console;
+const fs = require("fs");
+
+>>>>>>> 0.99.0
 
 exports.console = function () {
     this.howami = "interactiveConsole not ready";
@@ -11,7 +19,11 @@ exports.console = function () {
     this.size = {
         column: process.stdout.columns,
         row: process.stdout.rows
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.count = consoleOld.count;
     this.check = function () {
         try {
@@ -22,13 +34,21 @@ exports.console = function () {
             that.detected.wonderfulOutput = 0;
         }
         that.howami = "interactiveConsole is fine";
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.debug = function (incoming, level) {
         if (typeof level === "undefined")
             level = 9;
         if (that.config.debugLevel >= level)
             that.log(incoming);
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.detected = {
         wonderfulOutput: 0
     };
@@ -45,10 +65,103 @@ exports.console = function () {
     this.trace = consoleOld.trace;
     this.cacheCount = {};
     this.countNumber = 0;
+<<<<<<< HEAD
+=======
+    this.bar={
+        bars:{},
+        init:function(inp){
+            if(typeof inp.name === "undefined")
+                return false;
+            if(typeof inp.max === "undefined")
+                inp.max = 10;
+            if(typeof inp.lines === "undefined")
+                inp.lines = {};
+            that.bar.bars[inp.name]={
+                size  : 10,
+                max   : inp.max,
+                lines : inp.lines
+            };
+        },
+        addLine:function(inp){
+            if(
+                (typeof inp.bar === "undefined")||
+                 (typeof that.bar.bars[inp.bar] === "undefined")||
+                 (typeof inp.id  === "undefined")||
+                 (typeof inp.title === "undefined")
+            ) return false;
+            if(
+                (typeof inp.value === "undefined")||
+                 (0 > inp.value)||
+                 ((that.bar.bars[inp.bar].max !== "auto")&&
+                 (inp.value > that.bar.bars[inp.bar].max))
+            ) inp.value = 0;
+            if(typeof inp.color    === "undefined")
+                inp.color = "white";
+            if(inp.title.toString().length+2 > that.bar.bars[inp.bar].size)
+                that.bar.bars[inp.bar].size = inp.title.length+2;
+            that.bar.bars[inp.bar].lines[inp.id] = {
+                title:inp.title,
+                color:inp.color,
+                value:inp.value
+            };
+        },
+        update:function(inp){
+            if(
+                (typeof that.bar.bars[inp.name] === "undefined")||
+                 (typeof that.bar.bars[inp.name].lines === "undefined")
+            )
+                return false;
+            for(let i in inp.update){
+                if(typeof that.bar.bars[inp.name].lines[i] === "undefined")
+                    continue;
+                that.bar.bars[inp.name].lines[i].value = inp.update[i];
+            }
+            return true;
+        },
+        draw:function(bar){
+            if(
+                (typeof bar === "undefined")||
+                 (typeof that.bar.bars[bar] === "undefined")
+            )
+                return false;
+            let siz = that.bar.bars[bar].size,
+                out = "",
+                max = that.bar.bars[bar].max,
+                lines = that.bar.bars[bar].lines;
+            for (let i in lines){
+                out += that.bar.title(siz,lines[i].title)+
+                    "\u2502"+
+                    that.bar.line(lines[i].color, lines[i].value, max)+
+                    "\n";
+            }
+            that.print(out);
+        },
+        title:function(size,title){
+            let spaces = size - title.toString().length-1,
+                ot = "";
+            for (let i = 0; spaces > i ; i++)
+                ot += " ";
+            return ot+title+" ";
+        },
+        line:function(color,size,max){
+            let siz = Math.floor(size*(35/max)),
+                ut = "";
+            for (let i =1 ; 35>i;i++)
+                if(i>siz)
+                    ut +=" ";
+                else
+                    ut +="\u2588";
+            return that.style(ut, [{color}]);
+              
+        }
+
+    };
+>>>>>>> 0.99.0
     this.history = {
         list: [],
         position: 0,
         add: function (list) {
+<<<<<<< HEAD
 
             if (Object.prototype.toString.call(list) === '[object Array]') {
                 that.history.list = [];
@@ -58,17 +171,36 @@ exports.console = function () {
             } else if (typeof list === "string") {
                 if ((that.history.list.length < 1) || (list !== that.history.list[that.history.list.length - 1]))
                     that.history.list.push(list);
+=======
+            if (Object.prototype.toString.call(list) === "[object Array]") {
+                that.history.list = [];
+                for (var i = 0; list.length > i; i++)
+                    if (
+                        (that.history.list.length < 1) ||
+                        (list[i] !== that.history.list[that.history.list.length - 1])
+                    ) that.history.list.push(list[i]);
+            } else if (typeof list === "string") {
+                if (
+                    (that.history.list.length < 1) || 
+                    (list !== that.history.list[that.history.list.length - 1])
+                ) that.history.list.push(list);
+>>>>>>> 0.99.0
             }
             that.history.position = that.history.list.length;
             return true;
         }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.icons = {
         log: "\u27e1",
         warn: "\u26a0",
         info: "\u2709",
         error: "\u26a1",
         time: "\u25f4"
+<<<<<<< HEAD
     },
             this.writeStream = {
                 write: function (haleluja) {
@@ -77,6 +209,18 @@ exports.console = function () {
             }
     this.writeInit = function () {
         this.writeStream = fs.createWriteStream(this.config.log.directory + this.config.log.fileName, {'flags': 'a'});
+=======
+    };
+    this.writeStream = {
+        write: function (input) {
+            return input;
+        }
+    };
+    this.writeInit = function () {
+        this.writeStream = fs.createWriteStream(
+            this.config.log.directory + this.config.log.fileName, {"flags": "a"}
+        );
+>>>>>>> 0.99.0
         this.config.log.write = 1;
     };
     this.config = {
@@ -92,7 +236,11 @@ exports.console = function () {
         icon: 0,
         limitation: "none", // none, safe, number, calculator
         limits: {
+<<<<<<< HEAD
             safe: "QWERTYUIOOOOPASDFGHJKL\ZXCVBNM qwertyuiopasdfghjklzxcvbnm`1234567890_-+={[}]:;@'~#!" + '"' + "£$%^&*()æßðđŋħĸµn¢»«|\\/?><,.€½³²¹½¾¢|«»nµłĸŋđðßæ@łe¶ŧ←↓→øþ·̣|¬*",
+=======
+            safe: "QWERTYUIOOOOPASDFGHJKLZXCVBNM qwertyuiopasdfghjklzxcvbnm`1234567890_-+={[}]:;@'~#!\"£$%^&*()æßðđŋħĸµn¢»«|\\/?><,.€½³²¹½¾¢|«»nµłĸŋđðßæ@łe¶ŧ←↓→øþ·̣|¬*",
+>>>>>>> 0.99.0
             number: "0123456789",
             calculator: "098764321=+-*/%"
         },
@@ -127,7 +275,11 @@ exports.console = function () {
         titleColor: 1,
         timeStamp: 1,
         wonderfulOutput: 1
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.styles = {
         color: {
             black: 30,
@@ -161,12 +313,17 @@ exports.console = function () {
             hidden: 8,
             strikethrough: 9,
         }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.cache = [];
     this.cacheRewrite = function () {
         that.clear();
         for (var i = 0; that.cache.length > i; i++) {
             that.print(that.textMaker.re(that.cache[i].count,
+<<<<<<< HEAD
                     that.cache[i].hostname,
                     that.cache[i].text,
                     that.cache[i].type,
@@ -174,6 +331,15 @@ exports.console = function () {
         }
         that.makePrompt();
     }
+=======
+                that.cache[i].hostname,
+                that.cache[i].text,
+                that.cache[i].type,
+                that.cache[i].timeStamp) + "\n");
+        }
+        that.makePrompt();
+    };
+>>>>>>> 0.99.0
     this.cacheAdd = function (count, hostname, text, type, timeStamp) {
         that.cache.push({
             count: count,
@@ -182,6 +348,7 @@ exports.console = function () {
             text: text,
             type: type
         });
+<<<<<<< HEAD
     }
     this.style = function (text, styles) {
         var style = '\u001b[85';
@@ -190,28 +357,55 @@ exports.console = function () {
                 if ((typeof this.styles[s] !== "undefined") && (typeof this.styles[s][styles[i][s]] !== "undefined"))
                     style += ";" + this.styles[s][styles[i][s]].toString();
         for (var s in styles)
+=======
+    };
+    this.style = function (text, styles) {
+        let style = "\u001b[85";
+        for (let i in styles)
+            for (let s in styles[i])
+                if ((typeof this.styles[s] !== "undefined") && (typeof this.styles[s][styles[i][s]] !== "undefined"))
+                    style += ";" + this.styles[s][styles[i][s]].toString();
+        for (let s in styles)
+>>>>>>> 0.99.0
             if ((typeof this.styles[s] !== "undefined") && (typeof this.styles[s][styles[s]] !== "undefined"))
                 style += ";" + this.styles[s][styles[s]].toString();
         var last = text.lastIndexOf("\u001b[0m");
         text = text.slice(0, last) + text.slice(last).replace("\u001b[0m", "\u001b[0m" + style + "m");
         return style + "m" + text + "\u001b[0m";
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.watchOn = 0;
     this.yes = function () {};
     this.no = function () {};
     this.clear = function () {
+<<<<<<< HEAD
         process.stdout.write('\u001b[2J\u001b[0;0f');
     }
+=======
+        process.stdout.write("\u001b[2J\u001b[0;0f");
+    };
+>>>>>>> 0.99.0
     this.print = function (incoming) {
         if (typeof incoming === "undefined")
             return false;
         process.stdout.write(incoming.toString());
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.printError = function (incoming) {
         if (typeof incoming === "undefined")
             return false;
         process.stderr.write(incoming.toString());
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.printLn = function (incoming, type) {
         if (typeof incoming === "undefined")
             return false;
@@ -229,14 +423,22 @@ exports.console = function () {
             this.printError(incoming.toString() + "\n");
         if (this.watchOn === 1)
             this.makePrompt();
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.titleText = {
         log: "log : ",
         warn: "warning : ",
         info: "info : ",
         error: "error : ",
         time: "time : "
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.textMaker = {
         timeStamp: function (stamp) {
             if (that.config.timeStamp === 1)
@@ -299,9 +501,15 @@ exports.console = function () {
             }
         },
         add: function (text, type) {
+<<<<<<< HEAD
             var stamp = +new Date;
             that.countNumber++;
             var out = text;
+=======
+            let stamp = +new Date();
+            that.countNumber++;
+            let out = text;
+>>>>>>> 0.99.0
             if (that.config.format === "text") {
                 out = that.textMaker.formater(out);
                 out = that.textMaker.text(type, out);
@@ -340,7 +548,11 @@ exports.console = function () {
         },
         incomming: function (hostname, text, type, stamp) {
             if (typeof stamp === "undefined")
+<<<<<<< HEAD
                 var stamp = (+new Date);
+=======
+                stamp = (+new Date());
+>>>>>>> 0.99.0
             that.countNumber++;
             if (that.config.format === "text") {
                 text = that.textMaker.formater(text);
@@ -359,6 +571,7 @@ exports.console = function () {
             return text;
         }
 
+<<<<<<< HEAD
     }
     this.log = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "log"));
@@ -369,11 +582,24 @@ exports.console = function () {
     this.info = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "info"));
     }
+=======
+    };
+    this.log = function (incoming) {
+        this.printLn(this.textMaker.add(incoming, "log"));
+    };
+    this.error = function (incoming) {
+        this.printLn(this.textMaker.add(incoming, "error", "error"));
+    };
+    this.info = function (incoming) {
+        this.printLn(this.textMaker.add(incoming, "info"));
+    };
+>>>>>>> 0.99.0
     this.timeText = "";
     this.timeStamp = 0;
     this.time = function (incoming) {
         this.timeText = incoming.toString();
         this.timeStamp = +new Date();
+<<<<<<< HEAD
     }
     this.timeEnd = function () {
         this.printLn(this.textMaker.add(this.timeText + " " + (((+new Date())) - this.timeStamp).toString() + "ms", "time"));
@@ -381,6 +607,15 @@ exports.console = function () {
     this.warn = function (incoming) {
         this.printLn(this.textMaker.add(incoming, "warn"));
     }
+=======
+    };
+    this.timeEnd = function () {
+        this.printLn(this.textMaker.add(this.timeText + " " + (((+new Date())) - this.timeStamp).toString() + "ms", "time"));
+    };
+    this.warn = function (incoming) {
+        this.printLn(this.textMaker.add(incoming, "warn"));
+    };
+>>>>>>> 0.99.0
     this.table = function (tableData) {
         var u = {
             a1: "\u250C",
@@ -394,6 +629,7 @@ exports.console = function () {
             c4: "\u251c",
             c5: "\u2524",
             b2: "\u2502"
+<<<<<<< HEAD
         }
 
         function calculateTable(tableData) {
@@ -405,6 +641,19 @@ exports.console = function () {
                     colNum = tableData[i].length;
 
             for (var ic = 0; colNum > ic; ic++) {
+=======
+        };
+
+        function calculateTable(tableData) {
+            let sizeCol = 0,
+                sizeDat = [],
+                colNum = 0;
+            for (let i = 0; tableData.length > i; i++)
+                if (tableData[i].length > colNum)
+                    colNum = tableData[i].length;
+
+            for (let ic = 0; colNum > ic; ic++) {
+>>>>>>> 0.99.0
                 sizeDat[ic] = 0;
                 for (var il = 0; tableData.length > il; il++) {
                     if (typeof tableData[il][ic] !== "undefined")
@@ -426,6 +675,7 @@ exports.console = function () {
             out += u.a2;
             return out;
         }
+<<<<<<< HEAD
 
         function tableCenter(tableSize) {
             var out = "";
@@ -434,6 +684,15 @@ exports.console = function () {
                 if (ic > 0)
                     out += u.c2;
                 for (var il = 0; tableSize[ic] > il; il++)
+=======
+        function tableCenter(tableSize) {
+            var out = "";
+            out += u.c4;
+            for (let ic = 0; tableSize.length > ic; ic++) {
+                if (ic > 0)
+                    out += u.c2;
+                for (let il = 0; tableSize[ic] > il; il++)
+>>>>>>> 0.99.0
                     out += u.b1;
             }
             out += u.c5;
@@ -443,7 +702,11 @@ exports.console = function () {
         function tableButton(tableSize) {
             var out = "";
             out += u.a3;
+<<<<<<< HEAD
             for (var ic = 0; tableSize.length > ic; ic++) {
+=======
+            for (let ic = 0; tableSize.length > ic; ic++) {
+>>>>>>> 0.99.0
                 if (ic > 0)
                     out += u.c3;
                 for (var il = 0; tableSize[ic] > il; il++)
@@ -455,9 +718,15 @@ exports.console = function () {
 
         function tableDataLine(tableData, tableSize) {
             var out = "",
+<<<<<<< HEAD
                     before = 0;
             out += u.b2;
             for (var ic = 0; tableSize.length > ic; ic++) {
+=======
+                before = 0;
+            out += u.b2;
+            for (let ic = 0; tableSize.length > ic; ic++) {
+>>>>>>> 0.99.0
                 if (ic > 0)
                     out += u.b2;
                 if (typeof tableData[ic] !== "undefined") {
@@ -478,16 +747,26 @@ exports.console = function () {
 
         function tableTitle(tableData, tableSize) {
             var out = "",
+<<<<<<< HEAD
                     before = 0;
             out += u.b2;
             for (var ic = 0; tableSize.length > ic; ic++) {
+=======
+                before = 0;
+            out += u.b2;
+            for (let ic = 0; tableSize.length > ic; ic++) {
+>>>>>>> 0.99.0
                 if (ic > 0)
                     out += u.b2;
                 if (typeof tableData[ic] !== "undefined") {
                     before = parseInt((tableSize[ic] - tableData[ic].length) / 2);
                     for (var ila = 0; before > ila; ila++)
                         out += " ";
+<<<<<<< HEAD
                     out += '\u001b[1m' + tableData[ic] + '\u001b[0m';
+=======
+                    out += "\u001b[1m" + tableData[ic] + "\u001b[0m";
+>>>>>>> 0.99.0
                     for (var ilb = 0; (tableSize[ic] - (before + tableData[ic].length)) > ilb; ilb++) {
                         out += " ";
                     }
@@ -503,9 +782,15 @@ exports.console = function () {
 
 
         var tableSize = calculateTable(tableData),
+<<<<<<< HEAD
                 out = "";
         out += tableTop(tableSize) + "\n";
         for (var i = 0; tableData.length > i; i++) {
+=======
+            out = "";
+        out += tableTop(tableSize) + "\n";
+        for (let i = 0; tableData.length > i; i++) {
+>>>>>>> 0.99.0
             if (i > 0) {
                 out += tableCenter(tableSize) + "\n";
                 out += tableDataLine(tableData[i], tableSize) + "\n";
@@ -515,6 +800,7 @@ exports.console = function () {
         }
         out += tableButton(tableSize) + "\n";
         process.stdout.write(out);
+<<<<<<< HEAD
     }
     this.graph = function (barData, startNumber) {
         startNumber = startNumber || 0;
@@ -548,6 +834,40 @@ exports.console = function () {
                 outData = [],
                 perNumber = 0,
                 minus = 0;
+=======
+    };
+    this.graph = function (barData, startNumber) {
+        startNumber = startNumber || 0;
+        var bar = [
+                " ",
+                "\u2581",
+                "\u2583",
+                "\u2584",
+                "\u2585",
+                "\u2586",
+                "\u2587",
+                "\u2588",
+            ],
+            barb = [
+                " ",
+                "\u2581",
+                "\u2582",
+                "\u2583",
+                "\u2584",
+                "\u2585",
+                "\u2586",
+                "\u2587",
+                "\u2588",
+            ],
+            graph = "",
+            minNumber = 0,
+            maxNumber = 0,
+            endNumber = 0,
+            diffNumber = 0,
+            outData = [],
+            perNumber = 0,
+            minus = 0;
+>>>>>>> 0.99.0
 
         if (barData.length === 0)
             return [];
@@ -569,7 +889,11 @@ exports.console = function () {
         }
         maxNumber = parseInt(barData[0]);
         minNumber = parseInt(barData[0]);
+<<<<<<< HEAD
         for (var i = startNumber; barData.length > i; i++) {
+=======
+        for (let i = startNumber; barData.length > i; i++) {
+>>>>>>> 0.99.0
             if (parseFloat(barData[i]) > maxNumber)
                 maxNumber = parseInt(barData[i]);
             if (minNumber > parseFloat(barData[i]))
@@ -578,6 +902,7 @@ exports.console = function () {
         minNumber--;
         diffNumber = maxNumber - minNumber;
         perNumber = diffNumber / 100;
+<<<<<<< HEAD
         for (var i = startNumber; barData.length > i; i++) {
             outData.push((parseInt(barData[i]) - minNumber) / perNumber);
         }
@@ -586,6 +911,16 @@ exports.console = function () {
             graph += "\u2502";
             for (var iL = 0; 60 > iL; iL++) {
                 minus = parseInt(outData[iL]) - ((14 - i) * 8)
+=======
+        for (let i = startNumber; barData.length > i; i++) {
+            outData.push((parseInt(barData[i]) - minNumber) / perNumber);
+        }
+        graph = "\n\u25B2 \n";
+        for (let i = 0; 14 > i; i++) {
+            graph += "\u2502";
+            for (let iL = 0; 60 > iL; iL++) {
+                minus = parseInt(outData[iL]) - ((14 - i) * 8);
+>>>>>>> 0.99.0
                 if (1 > minus)
                     minus = 0;
                 if (minus > 7)
@@ -598,13 +933,21 @@ exports.console = function () {
             graph += "\n";
         }
         graph += "\u2514";
+<<<<<<< HEAD
         for (var i = 0; 60 > i; i++) {
+=======
+        for (let i = 0; 60 > i; i++) {
+>>>>>>> 0.99.0
             graph += "\u2500";
         }
 
         graph += "\u25B6" + "\n";
         process.stdout.write(graph);
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
 
     this.exit = function () {
         that.makePrompt();
@@ -615,17 +958,29 @@ exports.console = function () {
         that.yes = function () {
             process.exit();
         };
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.cursorPosition = 0;
     this.cursorText = "nodeConsole_> ";
 
     this.on = function (incomming) {
         return false;
+<<<<<<< HEAD
     }
     this.line = {
         last: "",
         text: "",
     }
+=======
+    };
+    this.line = {
+        last: "",
+        text: "",
+    };
+>>>>>>> 0.99.0
     this.cursor = {
         up: function (line) {
             process.stdout.write("\u001b[" + line + "A");
@@ -638,13 +993,28 @@ exports.console = function () {
         },
         right: function (right) {
             process.stdout.write("\u001b[" + right + "C");
+<<<<<<< HEAD
         }
     }
+=======
+        },
+        hide: function (){
+            process.stdout.write("\x1B[?25l");
+        },
+        show: function (){
+            process.stdout.write("\x1B[?25h");
+        }
+    };
+>>>>>>> 0.99.0
     this.newLine = function () {
         process.stdout.write("\n");
         that.cursorPosition = 0;
         that.line.text = "";
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.makePrompt = function () {
         if(that.config.slave===1) return false;
         process.stdout.write("\n");
@@ -667,7 +1037,11 @@ exports.console = function () {
             process.stdout.write(that.cursorText + this.line.text);
         }
         process.stdout.cursorTo(this.cursorPosition + this.cursorText.length);
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.password = {
         on: function (password) {
             return false;
@@ -684,12 +1058,20 @@ exports.console = function () {
             that.config.limitation = "password";
         },
         doAction: function () {
+<<<<<<< HEAD
             that.password.on(that.line.text)
+=======
+            that.password.on(that.line.text);
+>>>>>>> 0.99.0
             that.password.inAction--;
             if (that.password.inAction === 0)
                 that.config.limitation = that.password.last;
         }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.number = {
         on: function (number) {
             return false;
@@ -706,12 +1088,20 @@ exports.console = function () {
             that.config.limitation = "number";
         },
         doAction: function () {
+<<<<<<< HEAD
             that.number.on(that.line.text)
+=======
+            that.number.on(that.line.text);
+>>>>>>> 0.99.0
             that.number.inAction--;
             if (that.number.inAction === 0)
                 that.config.limitation = that.number.last;
         }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.calculator = {
         on: function (calculator) {
             return false;
@@ -728,12 +1118,20 @@ exports.console = function () {
             that.calculator.limitation = "calculator";
         },
         doAction: function () {
+<<<<<<< HEAD
             that.calcularor.on(that.line.text)
+=======
+            that.calcularor.on(that.line.text);
+>>>>>>> 0.99.0
             that.calculator.inAction--;
             if (that.calculator.inAction === 0)
                 that.config.limitation = that.calculator.last;
         }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.direct = {
         on: function (direct) {
             return false;
@@ -750,12 +1148,20 @@ exports.console = function () {
             that.direct.limitation = "direct";
         },
         doAction: function (key) {
+<<<<<<< HEAD
             that.direct.on(key)
+=======
+            that.direct.on(key);
+>>>>>>> 0.99.0
             that.direct.inAction--;
             if (that.direct.inAction === 0)
                 that.config.limitation = that.direct.last;
         }
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     this.command = {
         container: {
             helper: {},
@@ -763,11 +1169,19 @@ exports.console = function () {
         },
         getCommands: function () {
             return JSON.stringify({
+<<<<<<< HEAD
                  hostname: hostname,
                  timeStamp: stamp,
                  command:'getCommands',
                  response:that.command.container.commands,
                  type: system
+=======
+                //hostname: hostname,
+                //timeStamp: stamp,
+                command:"getCommands",
+                response:that.command.container.commands,
+                //type: system
+>>>>>>> 0.99.0
             });
         },
         on: function (commandArray) {
@@ -785,7 +1199,11 @@ exports.console = function () {
             }
         },
         separator: function (command) {
+<<<<<<< HEAD
             command = command.toString().replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, '').replace(/\s+/g, ' ');
+=======
+            command = command.toString().replace(/(?:(?:^|\n)\s+|\s+(?:$|\n))/g, "").replace(/\s+/g, " ");
+>>>>>>> 0.99.0
             var commands = [];
             var commandi = 0;
             var commandit = 0;
@@ -800,16 +1218,28 @@ exports.console = function () {
                     if (command.charAt(i) === ";") {
                         commandi++;
                         commandit = 0;
+<<<<<<< HEAD
                     } else if (command.charAt(i) === '\\') {
+=======
+                    } else if (command.charAt(i) === "\\") {
+>>>>>>> 0.99.0
                         mod = 2;
                     } else if (command.charAt(i) === "'") {
                         mod = 1;
                         modSelector = "'";
+<<<<<<< HEAD
                     } else if (command.charAt(i) === '"') {
                         mod = 1;
                         modSelector = '"';
                     } else if ((command.charAt(i) === ' ') || (command.charAt(i) === "\t")) {
                         if ((i > 0) && (command.charAt(i - 1) !== " ") && (command.charAt(i - 1) !== "\t") && (command.charAt(i - 1) !== ";") && (command.charAt(i - 1) !== "'") && (command.charAt(i - 1) !== '"'))
+=======
+                    } else if (command.charAt(i) === "\"") {
+                        mod = 1;
+                        modSelector = "\"";
+                    } else if ((command.charAt(i) === " ") || (command.charAt(i) === "\t")) {
+                        if ((i > 0) && (command.charAt(i - 1) !== " ") && (command.charAt(i - 1) !== "\t") && (command.charAt(i - 1) !== ";") && (command.charAt(i - 1) !== "'") && (command.charAt(i - 1) !== "\""))
+>>>>>>> 0.99.0
                             commandit++;
                     } else {
                         commands[commandi][commandit] += command.charAt(i);
@@ -829,8 +1259,13 @@ exports.console = function () {
         },
         looking: function (input) {
             var separated = that.command.separator(input),
+<<<<<<< HEAD
                     tags = that.command.container.helper,
                     out = [];
+=======
+                tags = that.command.container.helper,
+                out = [];
+>>>>>>> 0.99.0
             separated = separated[separated.length - 1];
             if (typeof separated === "undefined")
                 return false;
@@ -846,12 +1281,21 @@ exports.console = function () {
             return out;
         },
         filter: function (tags, separated) {
+<<<<<<< HEAD
             var out = [];
             if (separated === "") {
                 for (var I in tags)
                     out.push(I);
             } else {
                 for (var I in tags)
+=======
+            let out = [];
+            if (separated === "") {
+                for (let I in tags)
+                    out.push(I);
+            } else {
+                for (let I in tags)
+>>>>>>> 0.99.0
                     if (I.indexOf(separated) == 0)
                         out.push(I);
             }
@@ -860,7 +1304,11 @@ exports.console = function () {
         add: function (command, functio, help) {
 
 
+<<<<<<< HEAD
             if (Object.prototype.toString.call(command) === '[object Array]') {
+=======
+            if (Object.prototype.toString.call(command) === "[object Array]") {
+>>>>>>> 0.99.0
                 for (var i = 0; command.length > i; i++)
                     that.command.addOne(command[i], functio, help);
             } else if (typeof command === "string") {
@@ -877,10 +1325,17 @@ exports.console = function () {
         },
         make: function (input) {
             var out = "",
+<<<<<<< HEAD
                     elementsNumber = 0;
             for (var i in input) {
                 if (elementsNumber < 6)
                     out += input[i] + ' ';
+=======
+                elementsNumber = 0;
+            for (var i in input) {
+                if (elementsNumber < 6)
+                    out += input[i] + " ";
+>>>>>>> 0.99.0
             }
             return out;
         },
@@ -890,6 +1345,7 @@ exports.console = function () {
             return that.command.make(that.command.looking(that.line.text));
         },
         systemCommands : function(command){
+<<<<<<< HEAD
             try{
                 var dataJson = JSON.parse(command);
             }catch(e){
@@ -900,15 +1356,40 @@ exports.console = function () {
             if (dataJson.command === "goToSlave") that.config.slave=1;
         }
     }
+=======
+            let dataJson;
+            try{
+                dataJson = JSON.parse(command);
+            }catch(e){
+                return false;
+            }
+            command = dataJson.command;
+            if(typeof command === "undefined")
+                return false; 
+            if (command === "getCommands")
+                that.printLn(JSON.stringify(that.command.getCommands()));
+            if (command === "goToSlave")
+                that.config.slave=1;
+        }
+    };
+>>>>>>> 0.99.0
     this.watch = function () {
         that.watchOn = 1;
         process.stdin.setRawMode(true);
         process.stdin.resume();
+<<<<<<< HEAD
         process.stdin.setEncoding('utf8');
         that.makePrompt();
         process.stdin.on('data', function (key) {
             if (that.config.mode === "yesNo") {
                 if ((key === 'y') || (key === 'j') || (key === 'i')) {
+=======
+        process.stdin.setEncoding("utf8");
+        that.makePrompt();
+        process.stdin.on("data", function (key) {
+            if (that.config.mode === "yesNo") {
+                if ((key === "y") || (key === "j") || (key === "i")) {
+>>>>>>> 0.99.0
                     that.newLine();
                     that.yes();
                     that.yes = function () {};
@@ -923,7 +1404,11 @@ exports.console = function () {
                     that.makePrompt();
                 }
             } else {
+<<<<<<< HEAD
                 if (key === '\u0003') {
+=======
+                if (key === "\u0003") {
+>>>>>>> 0.99.0
                     that.exit();
                 } else if ((that.config.limitation === "direct")) {
                     if (that.direct.inAction === 0) {
@@ -931,7 +1416,11 @@ exports.console = function () {
                     } else {
                         that.direct.doAction(key);
                     }
+<<<<<<< HEAD
                 } else if (key === '\u000D') {
+=======
+                } else if (key === "\u000D") {
+>>>>>>> 0.99.0
                     if (that.line.text.length > 0) {
                         if (["q", "quit", "e", "exit"].indexOf(that.line.text) > -1) {
                             that.exit();
@@ -955,25 +1444,41 @@ exports.console = function () {
                             that.makePrompt();
                         }
                     }
+<<<<<<< HEAD
                 } else if ((key === '\u0008') || (key.charCodeAt(0) === 127)) {
+=======
+                } else if ((key === "\u0008") || (key.charCodeAt(0) === 127)) {
+>>>>>>> 0.99.0
                     if (that.cursorPosition > 0) {
                         that.line.text = that.line.text.substr(0, parseInt(that.cursorPosition - 1)) + that.line.text.substr(parseInt(that.cursorPosition), that.line.text.length);
                         that.cursorPosition--;
                         that.makePrompt();
                     }
+<<<<<<< HEAD
                 } else if ((key === '\u001b[3~')) {
+=======
+                } else if ((key === "\u001b[3~")) {
+>>>>>>> 0.99.0
                     if (that.line.text.length > that.cursorPosition) {
                         that.line.text = that.line.text.substr(0, parseInt(that.cursorPosition)) + that.line.text.substr(parseInt(that.cursorPosition + 1), that.line.text.length);
                         that.makePrompt();
                     }
+<<<<<<< HEAD
                 } else if ((key === '\u001b[A') && ((that.config.limitation !== "password") || (that.config.limitation !== "calculator") || (that.config.limitation !== "number"))) {
+=======
+                } else if ((key === "\u001b[A") && ((that.config.limitation !== "password") || (that.config.limitation !== "calculator") || (that.config.limitation !== "number"))) {
+>>>>>>> 0.99.0
                     if (that.history.position > 0) {
                         that.history.position--;
                         that.line.text = that.history.list[that.history.position];
                         that.cursorPosition = that.line.text.length;
                         that.makePrompt();
                     }
+<<<<<<< HEAD
                 } else if ((key === '\u001b[B') && ((that.config.limitation !== "password") || (that.config.limitation !== "calculator") || (that.config.limitation !== "number"))) {
+=======
+                } else if ((key === "\u001b[B") && ((that.config.limitation !== "password") || (that.config.limitation !== "calculator") || (that.config.limitation !== "number"))) {
+>>>>>>> 0.99.0
                     if (that.history.list.length > that.history.position + 1) {
                         that.history.position++;
                         that.line.text = that.history.list[that.history.position];
@@ -986,11 +1491,19 @@ exports.console = function () {
                         that.makePrompt();
                     }
 
+<<<<<<< HEAD
                 } else if (((key === '\u001b[C') || (key == '\u001B\u005B\u0043')) && (that.config.limitation !== "password")) {
                     if (that.line.text.length > that.cursorPosition)
                         that.cursorPosition++;
                     that.makePrompt();
                 } else if (((key === '\u001b[D') || (key == '\u001B\u005B\u0044')) && (that.config.limitation !== "password")) {
+=======
+                } else if (((key === "\u001b[C") || (key == "\u001B\u005B\u0043")) && (that.config.limitation !== "password")) {
+                    if (that.line.text.length > that.cursorPosition)
+                        that.cursorPosition++;
+                    that.makePrompt();
+                } else if (((key === "\u001b[D") || (key == "\u001B\u005B\u0044")) && (that.config.limitation !== "password")) {
+>>>>>>> 0.99.0
                     if (that.cursorPosition > 0)
                         that.cursorPosition--;
                     that.makePrompt();
@@ -999,7 +1512,11 @@ exports.console = function () {
                             ((that.config.limitation === "safe") && (that.config.limits.safe.indexOf(key.toString()) > -1)) ||
                             ((that.config.limitation === "number") && (that.config.limits.number.indexOf(key.toString()) > -1)) ||
                             ((that.config.limitation === "calculator") && (that.config.limits.calculator.indexOf(key.toString()) > -1))
+<<<<<<< HEAD
                             ) {
+=======
+                    ) {
+>>>>>>> 0.99.0
                         if (that.line.text.length > 0) {
                             that.line.text = that.line.text.substr(0, parseInt(that.cursorPosition)) + key.toString() + that.line.text.substr(parseInt(that.cursorPosition), that.line.text.length);
                         } else {
@@ -1012,7 +1529,11 @@ exports.console = function () {
                 }
             }
         });
+<<<<<<< HEAD
     }
+=======
+    };
+>>>>>>> 0.99.0
     var that = this;
     this.check();
 };
