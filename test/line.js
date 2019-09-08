@@ -16,7 +16,7 @@ exports.lineTests=function(){
         "buffer setScreen",
         {
             "function":lineBuffer.setScreen,
-            "options":[10,4]
+            "options":[12,4]
         },
         "==",
        true 
@@ -33,7 +33,7 @@ exports.lineTests=function(){
     global.nanoTest.add(
         "buffer getAll",
         {
-            "function":lineBuffer.geAll,
+            "function":lineBuffer.getAll,
             "options":[0]
         },
         "==",
@@ -43,13 +43,13 @@ exports.lineTests=function(){
         "buffer getScreen",
         {
             "function":lineBuffer.getScreen,
-            "options":[0,1]
+            "options":[0]
         },
         "j==",
         [
-            "Lorem ipsumi",
+            "Lorem ipsum",
             "dolor sit",
-            "et, ",
+            "amet,  ",
             "consectetur"
         ]
     );
@@ -65,7 +65,7 @@ exports.lineTests=function(){
     global.nanoTest.add(
         "buffer getAll",
         {
-            "function":lineBuffer.geAll,
+            "function":lineBuffer.getAll,
             "options":[0]
         },
         "==",
@@ -90,7 +90,7 @@ exports.lineTests=function(){
     global.nanoTest.add(
         "buffer getAll",
         {
-            "function":lineBuffer.geAll,
+            "function":lineBuffer.getAll,
             "options":[0]
         },
         "==",
@@ -108,7 +108,7 @@ exports.lineTests=function(){
     global.nanoTest.add(
         "buffer getAll",
         {
-            "function":lineBuffer.geAll,
+            "function":lineBuffer.getAll,
             "options":[0]
         },
         "==",
