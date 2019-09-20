@@ -1,6 +1,11 @@
 "use strict";
 
-const consoleOld = require("console").Console;
+const consoleOld   = require("console").Console;
+const consoleStyle = require("lib/style.js").style;
+const consoleGraph = require("lib/graph.js").graph;
+const consoleTable = require("lib/table.js").table;
+const consoleBar   = require("lib/bar.js").bar;
+const consoleOld   = require("console").Console;
 const fs = require("fs");
 
 
@@ -45,7 +50,7 @@ exports.console = function () {
     this.trace = consoleOld.trace;
     this.cacheCount = {};
     this.countNumber = 0;
-    this.bar={
+    this.bar{
         bars:{},
         init:function(inp){
             if(typeof inp.name === "undefined")
