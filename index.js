@@ -2,9 +2,9 @@
 
 const consoleOld   = require("console").Console;
 const consoleStyle = require("./lib/style.js").style;
-const consoleGraph = require("./lib/graph.js").graph;
+//const consoleGraph = require("./lib/graph.js").graph;
 const consoleTable = require("./lib/table.js").table;
-const consoleBar   = require("./lib/bar.js").bar;
+//const consoleBar   = require("./lib/bar.js").bar;
 const fs = require("fs");
 
 
