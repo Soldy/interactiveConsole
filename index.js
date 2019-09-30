@@ -49,7 +49,7 @@ exports.console = function () {
     this.trace = consoleOld.trace;
     this.cacheCount = {};
     this.countNumber = 0;
-    this.bar{
+    this.bar={
         bars:{},
         init:function(inp){
             if(typeof inp.name === "undefined")
