@@ -1,6 +1,6 @@
 {
   "name": "interactiveConsole",
-  "version": "0.0.99-alpha0",
+  "version": "1.0.0-alpha0",
   "description": "simple fast utf-8 console/shell",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,9 @@
   "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/Soldy/intractiveConsole/issues"
+  },
+  "dependencies": {
+    "confrc": "0.0.1-alpha0"
   },
   "devDependencies": {
     "nanoTest": "0.0.4-alpha"
