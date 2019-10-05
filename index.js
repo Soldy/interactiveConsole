@@ -346,11 +346,35 @@ exports.console = function () {
             var d = new Date(stamp);
             if (that.config.date === 1) {
                 if (that.config.dateFormat === "YMD")
-                    return"[" + that.style(d.getFullYear().toString() + "-" + (parseInt(d.getMonth()) + 1).toString() + "-" + d.getDate().toString() + " " + d.getHours().toString() + ":" + d.getMinutes().toString() + ":" + d.getSeconds().toString() + "." + d.getMilliseconds().toString(), that.config.styles.date) + "]";
+                    return (
+                       "[" + that.style(d.getFullYear().toString() + 
+                       "-" + (parseInt(d.getMonth()) + 1).toString() + 
+                       "-" + d.getDate().toString() + 
+                       " " + d.getHours().toString() + 
+                       ":" + d.getMinutes().toString() + 
+                       ":" + d.getSeconds().toString() + 
+                       "." + d.getMilliseconds().toString(), that.config.styles.date) + "]"
+                       );
                 if (that.config.dateFormat === "DMY")
-                    return"[" + that.style(d.getDate().toString() + "-" + (parseInt(d.getMonth()) + 1).toString() + "-" + d.getFullYear().toString() + " " + d.getHours().toString() + ":" + d.getMinutes().toString() + ":" + d.getSeconds().toString() + "." + d.getMilliseconds().toString(), that.config.styles.date) + "]";
+                    return (
+                        "[" + that.style(d.getDate().toString() + 
+                        "-" + (parseInt(d.getMonth()) + 1).toString() + 
+                        "-" + d.getFullYear().toString() + 
+                        " " + d.getHours().toString() + 
+                        ":" + d.getMinutes().toString() + 
+                        ":" + d.getSeconds().toString() + 
+                        "." + d.getMilliseconds().toString(), that.config.styles.date) + "]"
+                    );
                 if (that.config.dateFormat === "MDY")
-                    return"[" + that.style((parseInt(d.getMonth()) + 1).toString() + "-" + d.getDate().toString() + "-" + d.getFullYear().toString() + " " + d.getHours().toString() + ":" + d.getMinutes().toString() + ":" + d.getSeconds().toString() + "." + d.getMilliseconds().toString(), that.config.styles.date) + "]";
+                    return (
+                        "[" + that.style((parseInt(d.getMonth()) + 1).toString() + 
+                        "-" + d.getDate().toString() + 
+                        "-" + d.getFullYear().toString() + 
+                        " " + d.getHours().toString() + 
+                        ":" + d.getMinutes().toString() + 
+                        ":" + d.getSeconds().toString() + 
+                        "." + d.getMilliseconds().toString(), that.config.styles.date) + "]"
+                    );
             }
             return "";
         },
