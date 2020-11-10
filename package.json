@@ -44,7 +44,6 @@
     "confrc": "0.0.1-alpha0"
   },
   "devDependencies": {
-    "nano-test": "0.0.4-alpha",
-    "nanoTest": "0.0.4-alpha"
+    "nanoTest": "0.9.9-beta8"
   }
 }
